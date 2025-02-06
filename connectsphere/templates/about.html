@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About ConnectSphere</title>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        :root {
+            --primary: #4a90e2;
+            --secondary: #2ecc71;
+            --text: #2c3e50;
+            --background: #f5f7fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-out;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            color: var(--text);
+            margin-bottom: 30px;
+            font-size: 3em;
+            position: relative;
+            animation: slideIn 0.8s ease-out, float 6s ease-in-out infinite;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        h2 {
+            color: var(--text);
+            margin-top: 40px;
+            animation: slideIn 1s ease-out;
+            font-size: 2em;
+        }
+
+        p {
+            color: #555;
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        ul {
+            text-align: left;
+            display: inline-block;
+            padding-left: 20px;
+            animation: fadeIn 1.4s ease-out;
+            width: 80%;
+        }
+
+        li {
+            color: #555;
+            margin: 15px 0;
+            position: relative;
+            padding: 15px 25px;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        li:hover {
+            transform: translateX(10px) scale(1.02);
+            background: rgba(74, 144, 226, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        li::before {
+            content: '➜';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-size: 1.2em;
+        }
+
+        strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(74, 144, 226, 0.2) 0%, rgba(46, 204, 113, 0.2) 100%);
+            padding: 3px 8px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .highlight:hover {
+            background: linear-gradient(120deg, rgba(74, 144, 226, 0.3) 0%, rgba(46, 204, 113, 0.3) 100%);
+            transform: scale(1.05);
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .tech-item {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+                border-radius: 20px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            p {
+                font-size: 1.1em;
+            }
+
+            ul {
+                width: 90%;
+                padding-left: 10px;
+            }
+
+            li {
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>About ConnectSphere</h1>
+        <p><strong>ConnectSphere</strong> is a modern social media platform built with Django. It allows users to create profiles, post updates, engage through likes and comments, and chat via real-time messaging.</p>
+        
+        <h2>Key Features</h2>
+        <ul>
+            <li>User Authentication (Signup/Login)</li>
+            <li>Profile Customization</li>
+            <li>Post Creation, Likes, and Comments</li>
+            <li>Real-time Messaging</li>
+            
+        </ul>
+
+        <h2>Technologies Used</h2>
+        <div class="tech-stack">
+            <div class="tech-item"><strong>Backend:</strong> Django (Python)</div>
+            <div class="tech-item"><strong>Frontend:</strong> HTML/CSS/JS</div>
+            <div class="tech-item"><strong>Database:</strong> SQLite3</div>
+            <div class="tech-item"><strong>Real-time:</strong> WebSockets</div>
+            <div class="tech-item"><strong>Auth:</strong> Django Auth</div>
+        </div>
+
+        <p>Developed with a focus on user engagement and security, ConnectSphere provides an intuitive and seamless experience for online interaction.</p>
+    </div>
+</body>
+</html>

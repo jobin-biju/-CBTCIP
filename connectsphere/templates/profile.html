@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectSphere - Profile</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #5b21b6;
+            --primary-light: #7c3aed;
+            --secondary-color: #f3f4f6;
+            --text-color: #1f2937;
+            --border-radius: 16px;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: var(--text-color);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo i {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 12px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 2rem auto;
+            animation: slideIn 0.5s ease;
+        }
+
+        .profile-header {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            z-index: 1;
+        }
+
+        .profile-picture {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 6px solid white;
+            box-shadow: var(--box-shadow);
+            margin: 0 auto 1.5rem;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            object-fit: cover;
+        }
+
+        .profile-picture:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-header h2 {
+            color: var(--text-color);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-header p {
+            color: #6b7280;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-info {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-item:hover {
+            background: var(--secondary-color);
+            transform: translateX(10px);
+        }
+
+        .info-item span:first-child {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .info-item span:last-child {
+            color: #4b5563;
+        }
+
+        .info-item i {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(91, 33, 182, 0.2);
+            background: var(--primary-light);
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+            box-shadow: 0 4px 12px rgba(75, 85, 99, 0.2);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                margin-bottom: 5rem;
+            }
+
+            .profile-header {
+                padding: 2rem 1rem;
+            }
+
+            .profile-picture {
+                width: 150px;
+                height: 150px;
+            }
+
+            .info-item {
+                padding: 1rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+                padding: 0 1rem;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-globe"></i>
+                ConnectSphere
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="profile-header">
+            {% if user.profile_picture %}
+            <img src="{{ user.profile_picture }}" alt="Profile Picture"  class="profile-picture" style="max-width: 150px;">
+        {% else %}
+            <p>No profile picture uploaded.</p>
+        {% endif %}
+            <!-- <img src="/api/placeholder/180/180" alt="Profile Picture" class="profile-picture" id="profile-picture"> -->
+            <h2>{{ user.fullname }}</h2>
+            <p>@{{ user.username }}</p>
+        </div>
+
+        <div class="profile-info">
+            <div class="info-item">
+                <span><i class="fas fa-user"></i> Full Name</span>
+                <span>{{ user.fullname }}</span>
+            </div>
+            <div class="info-item">
+                <span><i class="fas fa-at"></i> Username</span>
+                <span>{{ user.username }}</span>
+            </div>
+            <div class="info-item">
+                <span><i class="fas fa-envelope"></i> Email</span>
+                <span>{{ user.email }}</span>
+            </div>
+            <div class="info-item">
+                <span><i class="fas fa-phone"></i> Phone</span>
+                <span>{{ user.phone_number }}</span>
+            </div>
+            <div class="info-item">
+                <span><i class="fas fa-map-marker-alt"></i> Address</span>
+                <span>{{ user.address }}</span>
+            </div>
+            <div class="info-item">
+                <span><i class="fas fa-comment-alt"></i> Bio</span>
+                <span>{{ user.bio }}</span>
+            </div>
+            <div class="info-item">
+                <span><i class="fas fa-calendar-alt"></i> Joined</span>
+                <span>{{ user.date_joined|date:"F d, Y" }}</span>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <a href="{% url 'update_profile' %}" class="btn">
+                <i class="fas fa-edit"></i> Update Profile
+            </a>
+            <a href="{% url 'homepage' %}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </div>
+
+    <script>
+      // Profile picture hover and click functionality
+const profilePic = document.getElementById('profile-picture');
+
+// Check if there's a stored profile picture in sessionStorage and set it as the default image
+window.onload = function () {
+    const savedPhoto = sessionStorage.getItem('profile_photo');
+    if (savedPhoto) {
+        profilePic.src = savedPhoto;
+    }
+};
+
+profilePic.addEventListener('click', () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const imageSrc = e.target.result;
+
+                // Display the selected profile picture
+                profilePic.src = imageSrc;
+
+                // Store the image in sessionStorage so it persists until logout
+                sessionStorage.setItem('profile_photo', imageSrc);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+    input.click();
+});
+
+// Animate elements on scroll
+function animateOnScroll() {
+    const elements = document.querySelectorAll('.profile-info, .button-group');
+    elements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementBottom = element.getBoundingClientRect().bottom;
+
+        // Animate when elements come into the viewport
+        if (elementTop < window.innerHeight && elementBottom > 0) {
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+            element.classList.add('animated'); // Add class to indicate it's animated
+        }
+    });
+}
+
+window.addEventListener('scroll', animateOnScroll);
+animateOnScroll();
+
+// Function to clear the profile picture on logout
+function logout() {
+    // Clear the profile picture from sessionStorage
+    sessionStorage.removeItem('profile_photo');
+    // Redirect to the login page or other appropriate page
+    window.location.href = '/login';  // Adjust the URL to match your app's structure
+}
+
+    </script>
+</body>
+</html>

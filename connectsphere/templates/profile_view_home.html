@@ -1,0 +1,23 @@
+<!-- profile_view.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - {{ user.username }}</title>
+</head>
+<body>
+    <h1>Profile of {{ user.username }}</h1>
+
+    <h2>Messages</h2>
+    <ul>
+        {% for message in messages_received %}
+            <li>
+                <strong>From:</strong> {{ message.sender.username }}<br>
+                <strong>Message:</strong> {{ message.content }}<br>
+                <strong>Sent at:</strong> {{ message.created_at|date:"F j, Y, g:i a" }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

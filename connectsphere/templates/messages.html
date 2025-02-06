@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-light: #eef2ff;
+            --secondary-color: #6b7280;
+            --success-color: #10b981;
+            --background: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --border-color: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            min-height: 100vh;
+            padding: 2rem;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .header h2 {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-left: 1rem;
+        }
+
+        .header i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .users-list {
+            list-style: none;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-item {
+            animation: fadeInUp 0.5s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .user-item:nth-child(1) { animation-delay: 0.1s; }
+        .user-item:nth-child(2) { animation-delay: 0.2s; }
+        .user-item:nth-child(3) { animation-delay: 0.3s; }
+        .user-item:nth-child(4) { animation-delay: 0.4s; }
+        .user-item:nth-child(5) { animation-delay: 0.5s; }
+
+        .user-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            background: var(--card-bg);
+        }
+
+        .user-link:hover {
+            background: var(--primary-light);
+            transform: translateX(10px);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: white;
+            font-weight: 500;
+        }
+
+        .user-info {
+            flex-grow: 1;
+        }
+
+        .user-name {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .user-status {
+            font-size: 0.875rem;
+            color: var(--success-color);
+        }
+
+        .message-icon {
+            color: var(--primary-color);
+            margin-left: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .user-link:hover .message-icon {
+            transform: translateX(5px);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+
+            .header h2 {
+                font-size: 1.25rem;
+            }
+
+            .user-link {
+                padding: 0.75rem;
+            }
+
+            .user-avatar {
+                width: 32px;
+                height: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <i class="fas fa-comments"></i>
+            <h2>Message Users</h2>
+        </div>
+
+        <ul class="users-list">
+            {% for user in users %}
+                <li class="user-item">
+                    <a href="{% url 'chat' user.id %}" class="user-link">
+                        <div class="user-avatar">
+                            {{ user.fullname|slice:":1" }}
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name">{{ user.fullname }}</div>
+                            <div class="user-status">
+                                <i class="fas fa-circle"></i> Online
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-right message-icon"></i>
+                    </a>
+                </li>
+            {% empty %}
+                <li class="empty-state">
+                    <i class="fas fa-users-slash"></i>
+                    <p>No registered users found.</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Add hover animation for user items
+            $('.user-link').hover(
+                function() {
+                    $(this).find('.message-icon').css('transform', 'translateX(5px)');
+                },
+                function() {
+                    $(this).find('.message-icon').css('transform', 'translateX(0)');
+                }
+            );
+
+            // Add click animation
+            $('.user-link').click(function() {
+                $(this).css('transform', 'scale(0.98)');
+                setTimeout(() => {
+                    $(this).css('transform', 'scale(1)');
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

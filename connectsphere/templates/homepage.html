@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Previous head content and styles remain the same -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectSphere - Share Your World</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* All previous styles remain exactly the same */
+        :root {
+            --primary-color: #5b21b6;
+            --primary-light: #7c3aed;
+            --secondary-color: #f3f4f6;
+            --text-color: #1f2937;
+            --border-radius: 16px;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f9fafb;
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo i {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 12px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.35rem;
+            position: relative;
+            padding: 0.75rem;
+            border-radius: 12px;
+        }
+
+        .nav-link:hover {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .nav-link i {
+            font-size: 1.4rem;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ef4444;
+            color: white;
+            border-radius: 30px;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 2rem auto;
+            animation: slideIn 0.5s ease;
+        }
+
+        .post-form {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2.5rem;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 1.25rem;
+            border: 2px solid #e5e7eb;
+            border-radius: var(--border-radius);
+            resize: vertical;
+            min-height: 120px;
+            margin-bottom: 1.25rem;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(91, 33, 182, 0.1);
+        }
+
+        .file-upload {
+            display: flex;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            flex: 1;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            display: none;
+        }
+
+        .file-input-wrapper label {
+            display: block;
+            padding: 1rem 1.5rem;
+            background: var(--secondary-color);
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .file-input-wrapper label:hover {
+            background: #e5e7eb;
+            transform: translateY(-2px);
+        }
+
+        button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        button:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .post {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .post-header img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            border: 3px solid var(--primary-light);
+            padding: 2px;
+        }
+
+        .post-content {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .post img, .post video {
+            width: 100%;
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 1.25rem;
+            margin: 1.5rem 0;
+            border-top: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 0;
+        }
+
+        .like-btn {
+            background: transparent;
+            color: var(--text-color);
+            padding: 0.75rem 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 30px;
+            font-size: 0.95rem;
+        }
+
+        .like-btn:hover {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .like-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .comment-form {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .comment-form input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 30px;
+            font-size: 1rem;
+        }
+
+        .comment-form input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(91, 33, 182, 0.1);
+        }
+
+        .comment {
+            background: var(--secondary-color);
+            padding: 1.25rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #6b7280;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 1rem;
+                margin-bottom: 5rem;
+            }
+            
+            .nav-links {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.9);
+                backdrop-filter: blur(10px);
+                padding: 0.75rem;
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+                justify-content: space-around;
+            }
+
+            .nav-link {
+                padding: 0.5rem;
+            }
+
+            .file-upload {
+                flex-direction: column;
+            }
+            
+        }
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.35rem;
+            position: relative;
+            padding: 0.75rem;
+            border-radius: 12px;
+        }
+
+        .nav-link:hover {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* New styles for profile dropdown */
+        .profile-container {
+            position: relative;
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            min-width: 200px;
+            padding: 0.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .profile-container:hover .profile-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-link:hover {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .profile-dropdown {
+                position: fixed;
+                bottom: 100%;
+                left: 0;
+                right: 0;
+                border-radius: var(--border-radius) var(--border-radius) 0 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/homepage" class="logo">
+                <i class="fas fa-globe"></i>
+                ConnectSphere
+            </a>
+            <div class="nav-links">
+                <a href="/homepage" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="/notifications" class="nav-link">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                    <!-- <div class="notification-badge">3</div> -->
+                </a>
+                <a href="/messages" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Messages</span>
+                    <!-- <div class="notification-badge">5</div> -->
+                </a>
+                <div class="profile-container">
+                    <a href="/profile" class="nav-link">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                    <div class="profile-dropdown">
+                        <a href="/profile" class="dropdown-link">
+                            <i class="fas fa-user-circle"></i>
+                            <span>View Profile</span>
+                        </a>
+                        <a href="/update_password" class="dropdown-link">
+                            <i class="fas fa-key"></i>
+                            <span>Change Password</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/logout" class="dropdown-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2><i class="fas fa-globe"></i> Welcome, {{ user.username }}!</h2>
+
+        <form method="POST" enctype="multipart/form-data" class="post-form">
+            {% csrf_token %}
+            <textarea name="content" placeholder="What's on your mind?" required></textarea>
+            
+            <div class="file-upload">
+                <div class="file-input-wrapper">
+                    <label for="image-upload">
+                        <i class="fas fa-image"></i> Add Image
+                    </label>
+                    <input id="image-upload" type="file" name="image" accept="image/*">
+                </div>
+                
+                <div class="file-input-wrapper">
+                    <label for="video-upload">
+                        <i class="fas fa-video"></i> Add Video
+                    </label>
+                    <input id="video-upload" type="file" name="video" accept="video/*">
+                </div>
+            </div>
+            
+            <button type="submit">
+                <i class="fas fa-paper-plane"></i> Share Post
+            </button>
+        </form>
+
+        <h3><i class="fas fa-stream"></i> Recent Posts</h3>
+        
+        {% for post in posts %}
+        <div class="post">
+            <div class="post-header">
+                
+
+                <div>
+                    <strong>{{ post.user.username }}</strong>
+                    <div style="color: #6b7280; font-size: 0.9rem;">{{ post.created_at|date:"d M Y H:i" }}</div>
+                </div>
+            </div>
+
+            <div class="post-content">
+                {{ post.content }}
+            </div>
+
+            {% if post.image %}
+            <img src="{{ post.image.url }}" alt="Post Image">
+            {% endif %}
+
+            {% if post.video %}
+            <video controls>
+                <source src="{{ post.video.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            {% endif %}
+
+            <div class="post-actions">
+                <button id="like-btn-{{ post.id }}" class="like-btn" onclick="likePost({{ post.id }})">
+                    <i class="fas fa-heart"></i>
+                    <span id="like-count-{{ post.id }}">{{ post.likes.count }}</span>
+                </button>
+                
+                <button class="like-btn">
+                    <i class="fas fa-comment"></i> Comment
+                </button>
+            </div>
+
+            <div class="comment-section">
+                <form method="POST" action="{% url 'add_comment' post.id %}" class="comment-form">
+                    {% csrf_token %}
+                    <input type="text" name="content" placeholder="Write a comment..." required>
+                    <button type="submit">
+                        <i class="fas fa-reply"></i>
+                    </button>
+                </form>
+
+                {% for comment in post.comments.all %}
+                <div class="comment">
+                    <strong>{{ comment.user.username }}</strong>
+                    {{ comment.content }}
+                </div>
+                {% empty %}
+                <div class="empty-state">
+                    <i class="far fa-comments"></i>
+                    <p>No comments yet. Be the first to comment!</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-state">
+            <i class="fas fa-inbox"></i>
+            <p>No posts yet. Create the first post!</p>
+        </div>
+        {% endfor %}
+    </div>
+
+   
+    <script>
+        function likePost(postId) {
+            const btn = document.getElementById(`like-btn-${postId}`);
+            btn.style.transform = 'scale(1.2)';
+            
+            setTimeout(() => {
+                btn.style.transform = 'scale(1)';
+            }, 200);
+
+            fetch(`/like/${postId}/`, {
+                method: 'POST',
+                headers: {'X-CSRFToken': '{{ csrf_token }}'}
+            })
+            .then(response => response.json())
+            .then(data => {
+                const likeBtn = document.getElementById(`like-btn-${postId}`);
+                const likeCount = document.getElementById(`like-count-${postId}`);
+                
+                if (data.liked) {
+                    likeBtn.classList.add('active');
+                    likeBtn.querySelector('i').classList.remove('far');
+                    likeBtn.querySelector('i').classList.add('fas');
+                } else {
+                    likeBtn.classList.remove('active');
+                    likeBtn.querySelector('i').classList.remove('fas');
+                    likeBtn.querySelector('i').classList.add('far');
+                }
+                
+                likeCount.innerText = data.like_count;
+            });
+        }
+
+        // Add animation to new posts
+        document.querySelectorAll('.post').forEach((post, index) => {
+            post.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Preview image/video before upload
+        function previewFile(input, type) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.createElement(type);
+                    preview.src = e.target.result;
+                    preview.style.maxWidth = '100%';
+                    preview.style.marginTop = '1rem';
+                    
+                    const container = input.parentElement;
+                    const oldPreview = container.querySelector(type);
+                    if (oldPreview) {
+                        container.removeChild(oldPreview);
+                    }
+                    container.appendChild(preview);
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        document.getElementById('image-upload').addEventListener('change', function() {
+            previewFile(this, 'img');
+        });
+
+        document.getElementById('video-upload').addEventListener('change', function() {
+            previewFile(this, 'video');
+        });
+    </script>
+</body>
+</html>
