@@ -21,9 +21,12 @@
 ```bash
 git clone https://github.com/jobin-biju/CBTCIP.git
 cd CBTCIP
-'''bash
-### 2️⃣ Create and activate a virtual environment
+
+#!/bin/bash
 python -m venv env
+# Activate the virtual environment
+source env/bin/activate
+# Or for Windows: env\Scripts\activate
 
 ### 3️⃣ Install dependencies
 python manage.py makemigrations
