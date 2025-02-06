@@ -21,6 +21,7 @@
 ```bash
 git clone https://github.com/jobin-biju/CBTCIP.git
 cd CBTCIP
+'''bash
 ### 2️⃣ Create and activate a virtual environment
 python -m venv env
 
