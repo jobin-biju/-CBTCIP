@@ -7,24 +7,11 @@ from django.contrib.auth.decorators import login_required
 import sendgrid
 from sendgrid.helpers.mail import Mail, Email, To, Content
 from django.conf import settings
-from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from .models import Post, Like, Comment, registration
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib import messages
-from .models import User, Follow, Notification
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .models import registration
-from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib import messages
-
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .models import registration  # Import your user model
-
 
 
 def home(request):
